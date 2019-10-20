@@ -1,1 +1,162 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#000000"><meta content="IE=Edge" http-equiv="X-UA-Compatible"><title>VK Mini App Boilerplate</title><link href="/vk-list-date/static/css/2.4e89ce74.chunk.css" rel="stylesheet"></head><body><div id="root"></div><script>!function(a){function e(e){for(var t,r,n=e[0],o=e[1],u=e[2],l=0,i=[];l<n.length;l++)r=n[l],Object.prototype.hasOwnProperty.call(p,r)&&p[r]&&i.push(p[r][0]),p[r]=0;for(t in o)Object.prototype.hasOwnProperty.call(o,t)&&(a[t]=o[t]);for(s&&s(e);i.length;)i.shift()();return c.push.apply(c,u||[]),f()}function f(){for(var e,t=0;t<c.length;t++){for(var r=c[t],n=!0,o=1;o<r.length;o++){var u=r[o];0!==p[u]&&(n=!1)}n&&(c.splice(t--,1),e=l(l.s=r[0]))}return e}var r={},p={1:0},c=[];function l(e){if(r[e])return r[e].exports;var t=r[e]={i:e,l:!1,exports:{}};return a[e].call(t.exports,t,t.exports,l),t.l=!0,t.exports}l.m=a,l.c=r,l.d=function(e,t,r){l.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},l.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},l.t=function(t,e){if(1&e&&(t=l(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(l.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var n in t)l.d(r,n,function(e){return t[e]}.bind(null,n));return r},l.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return l.d(t,"a",t),t},l.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},l.p="/vk-list-date/";var t=window["webpackJsonpvk-list-date"]=window["webpackJsonpvk-list-date"]||[],n=t.push.bind(t);t.push=e,t=t.slice();for(var o=0;o<t.length;o++)e(t[o]);var s=n;f()}([])</script><script src="/vk-list-date/static/js/2.64695538.chunk.js"></script><script src="/vk-list-date/static/js/main.1e3243cb.chunk.js"></script></body></html>
+<!DOCTYPE html>
+
+<html lang="">
+<head>
+    <meta charset="utf-8">
+
+    <title>авв</title>
+    <meta name="description" content="Создание виджета для сообщества ВКонтакте">
+    <meta name="keywords" content="Sergei Sokolov,ВК,виджет,конструктор">
+    <meta name="robots" content="noindex,nofollow">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <h3>---</h3>
+    
+    <div id="b-alerts"></div>
+    
+    <div class="form-group">
+      <button id="btn-permission" class="btn btn-primary" type="button">Дать разрешение</button>
+    </div>
+
+    <div class="form-group">
+      <label for="in-type">Тип виджета:</label>
+      <select class="form-control" id="in-type">
+        <option value="text">text</option>
+        <option value="list">list</option>
+        <option value="table">table</option>
+        <option value="tiles">tiles</option>
+        <option value="compact_list">compact_list</option>
+        <option value="cover_list">cover_list</option>
+        <option value="match">match</option>
+        <option value="matches">matches</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="in-code">Код виджета:</label>
+      <textarea rows="7" class="form-control" id="in-code">return {
+"title": "Цитата",
+"text": "Текст цитаты"
+};</textarea>
+    </div>
+
+    <button id="btn-preview" class="btn btn-primary" type="button">Предпросмотр виджета</button>
+        
+  </div><!-- /.container -->
+  
+  
+  
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  <!-- /Bootstrap JavaScript -->
+  
+  <!-- main script -->
+  <script>
+    function onReady() {
+
+      // Слушать события предпросмотра виджета 
+      VK.addCallback('onAppWidgetPreviewFail', function(e){
+        console.error('onAppWidgetPreviewFail', e);
+        showAlert('warning', 'onAppWidgetPreviewFail');
+      });
+      
+      VK.addCallback('onAppWidgetPreviewCancel', function(e){
+        console.error('onAppWidgetPreviewCancel', e);
+        showAlert('info', 'onAppWidgetPreviewCancel');
+      });
+      
+      VK.addCallback('onAppWidgetPreviewSuccess', function(e){
+        console.log('onAppWidgetPreviewSuccess', e);
+        showAlert('success', 'onAppWidgetPreviewSuccess');
+      });
+      
+      // События нажатия на кнопки
+      $('#btn-permission').on('click', function(){
+        console.log('showGroupSettings');
+        VK.callMethod("showGroupSettingsBox", 64);
+      });
+      
+      $('#btn-preview').on('click', function(){
+        var type = $('#in-type').val(),
+          code = $('#in-code').val()
+        ;
+        
+        console.log('showAppWidgetPreviewBox', {type: type, code:code});
+        VK.callMethod("showAppWidgetPreviewBox", type, code);
+      });
+
+    }
+
+
+    function showAlert(className, text) {
+      var html = [
+        '<div class="alert alert-dismissible alert-'+className+'" role="alert">',
+          text,
+        '</div>',
+      ].join('\n');
+      $('#b-alerts').append(html);
+    }
+  </script>
+  <!-- /main script -->
+  
+
+  <!-- VK scripts -->
+  <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+  
+  <script type="text/javascript">
+    VK.init(function() {
+       // API initialization succeeded
+       onReady();
+       
+    }, function() {
+       // API initialization failed
+       // Can reload page here
+       console.error('VK init error', arguments);
+    }, '5.74');
+  </script>
+  <!-- /VK scripts -->
+<script type="text/javascript">
+$(document).ready( function(){
+//Вызываем функцию регулировки высоты каждые пол секунды.
+setInterval('autosize(607)', 500); 
+
+$('#set-permission').on('click', function(e) {
+e.preventDefault();
+
+// запрос прав доступа для дальнейшего обновления данных посредством крона
+// после запрса создается ключ, который можно посмотреть на странице управления сообществом
+// его и нунжно будет применить для обновления данных в виджете через сервер
+// дока прав тут https://vk.com/dev/permissions
+// дока метода тут https://vk.com/dev/clientapi?f=3.+showGroupSettingsBox
+VK.callMethod("showGroupSettingsBox", 64);
+});
+
+$('#set-widget').on('click', function(e) {
+e.preventDefault();
+
+// запрос установки виджета
+// типы виджетов можно глянуть тут https://vk.com/dev/objects/appWidget
+// как подключить виджет можно глянуть тут https://vk.com/dev/apps_widgets
+VK.callMethod('showAppWidgetPreviewBox', 'text', 'return {' + 
+'"title": "Цитата",' + 
+'"text": "Текст цитаты"' + 
+'};');
+
+// типы событий, генерируемых после выполнения запроса на установку виджета можно глянуть тут https://vk.com/dev/apps_widgets
+// работа с событиями вк https://vk.com/dev/Javascript_SDK?f=4.1.+VK.addCallback
+VK.addCallback('onAppWidgetPreviewSuccess', function f(data){ 
+alert("Виджет успешно добавлен"); 
+});
+});	
+
+});
+</script>
+</body>
+</html>
